@@ -17,6 +17,7 @@ import java.util.Random;
 public class SecondFragment extends Fragment {
 
     private FragmentSecondBinding binding;
+    private SoundPlayer soundPlayer;
 
     @Override
     public View onCreateView(
@@ -25,6 +26,7 @@ public class SecondFragment extends Fragment {
     ) {
 
         binding = FragmentSecondBinding.inflate(inflater, container, false);
+        soundPlayer = new SoundPlayer();
         return binding.getRoot();
 
     }
@@ -39,6 +41,21 @@ public class SecondFragment extends Fragment {
                         .navigate(R.id.action_SecondFragment_to_FirstFragment);
             }
         });
+
+        view.findViewById(R.id.play_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                soundPlayer.onPlayClicked(view);
+            }
+        });
+
+        view.findViewById(R.id.stop_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                soundPlayer.onStopClicked(view);
+            }
+        });
+
         Integer count = SecondFragmentArgs.fromBundle(getArguments()).getMyArg();
         String countText = getString(R.string.random_heading, count);
         TextView headerView = view.getRootView().findViewById(R.id.textview_header);

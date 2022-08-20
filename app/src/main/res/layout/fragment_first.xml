@@ -56,4 +56,15 @@
         app:layout_constraintStart_toEndOf="@+id/toast_button"
         app:layout_constraintTop_toBottomOf="@+id/textview_first" />
 
+    <EditText
+        android:id="@+id/baseFreq"
+        android:layout_width="214dp"
+        android:layout_height="66dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toTopOf="@+id/textview_first"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
