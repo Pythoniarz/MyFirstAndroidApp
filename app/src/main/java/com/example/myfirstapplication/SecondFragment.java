@@ -17,7 +17,7 @@ import java.util.Random;
 public class SecondFragment extends Fragment {
 
     private FragmentSecondBinding binding;
-    private SoundPlayer soundPlayer;
+    private BinauralSoundPlayer binauralSoundPlayer;
 
     @Override
     public View onCreateView(
@@ -26,7 +26,7 @@ public class SecondFragment extends Fragment {
     ) {
 
         binding = FragmentSecondBinding.inflate(inflater, container, false);
-        soundPlayer = new SoundPlayer();
+        binauralSoundPlayer = new BinauralSoundPlayer();
         return binding.getRoot();
 
     }
@@ -45,14 +45,14 @@ public class SecondFragment extends Fragment {
         view.findViewById(R.id.play_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                soundPlayer.onPlayClicked(view);
+                binauralSoundPlayer.onPlayClicked(view);
             }
         });
 
         view.findViewById(R.id.stop_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                soundPlayer.onStopClicked(view);
+                binauralSoundPlayer.onStopClicked(view);
             }
         });
 
