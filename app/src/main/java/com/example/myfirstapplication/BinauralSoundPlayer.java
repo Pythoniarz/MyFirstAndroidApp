@@ -25,8 +25,8 @@ public class BinauralSoundPlayer extends Activity {
     boolean mStop = false;
     AudioTrack mAudiotrack;
     Thread mAudioThread;
-    double leftFreq;
-    double rightFreq;
+    double leftFreq = 440;
+    double rightFreq = 220;
 
     Runnable mSineWaveGenerator = new Runnable() {
         public void run() {
@@ -37,6 +37,7 @@ public class BinauralSoundPlayer extends Activity {
             // Sine wave
             double[] mSound = new double[2 * 44100];
             short[] mBuffer = new short[2 * 44100];
+
             for (int i = 0; i < mSound.length; i++) {
                 // 2 * pi * freq / bitrate
                 if (i % 2 == 0) {
@@ -47,7 +48,24 @@ public class BinauralSoundPlayer extends Activity {
                 mBuffer[i] = (short) (mSound[i] * Short.MAX_VALUE);
             }
 
+            double TmpLeftFreq = leftFreq;
+            double TmpRightFreq = rightFreq;
+
             while (!mStop) {
+                // check if need to recalculate buffer
+                if (TmpLeftFreq != leftFreq || TmpRightFreq != rightFreq) {
+                    for (int i = 0; i < mSound.length; i++) {
+                        // 2 * pi * freq / bitrate
+                        if (i % 2 == 0) {
+                            mSound[i] = Math.sin((2.0 * Math.PI * rightFreq / 44100.0 * (double) i));
+                        } else {
+                            mSound[i] = Math.sin((2.0 * Math.PI * leftFreq / 44100.0 * (double) i));
+                        }
+                        mBuffer[i] = (short) (mSound[i] * Short.MAX_VALUE);
+                    }
+                    TmpLeftFreq = leftFreq;
+                    TmpRightFreq = rightFreq;
+                }
                 mAudiotrack.write(mBuffer, 0, mSound.length);
             }
         }
