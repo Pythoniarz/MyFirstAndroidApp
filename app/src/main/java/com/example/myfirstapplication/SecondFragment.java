@@ -49,6 +49,8 @@ public class SecondFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 binauralSoundPlayer.onPlayClicked(view);
+                TextView textView = view.getRootView().findViewById(R.id.textview_random);
+                textView.setText(">");
             }
         });
 
@@ -56,6 +58,8 @@ public class SecondFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 binauralSoundPlayer.onStopClicked(view);
+                TextView textView = view.getRootView().findViewById(R.id.textview_random);
+                textView.setText("||");
             }
         });
 
@@ -92,6 +96,36 @@ public class SecondFragment extends Fragment {
                         e1.printStackTrace();
                     }
 
+            }
+        });
+
+        view.findViewById(R.id.left_plus).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binauralSoundPlayer.leftFreq += 0.5;
+                leftFreq.setText(""+binauralSoundPlayer.leftFreq);
+            }
+        });
+
+        view.findViewById(R.id.left_minus).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binauralSoundPlayer.leftFreq -= 0.5;
+                leftFreq.setText(""+binauralSoundPlayer.leftFreq);
+            }
+        });
+
+        view.findViewById(R.id.right_plus).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binauralSoundPlayer.rightFreq += 0.5;
+                rightFreq.setText(""+binauralSoundPlayer.rightFreq);
+            }
+        });view.findViewById(R.id.right_minus).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binauralSoundPlayer.rightFreq -= 0.5;
+                rightFreq.setText(""+binauralSoundPlayer.rightFreq);
             }
         });
 

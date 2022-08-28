@@ -6,6 +6,7 @@ import android.media.AudioFormat;
 import android.media.AudioTrack;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 public class BinauralSoundPlayer extends Activity {
     @Override
@@ -25,8 +26,9 @@ public class BinauralSoundPlayer extends Activity {
     boolean mStop = false;
     AudioTrack mAudiotrack;
     Thread mAudioThread;
-    double leftFreq = 440;
-    double rightFreq = 220;
+    int samplingRate = 44100;
+    double leftFreq = 220;
+    double rightFreq = 212.5;
 
     Runnable mSineWaveGenerator = new Runnable() {
         public void run() {
@@ -35,15 +37,15 @@ public class BinauralSoundPlayer extends Activity {
             /* 8000 bytes per second, 1000 bytes = 125 ms */
 
             // Sine wave
-            double[] mSound = new double[2 * 44100];
-            short[] mBuffer = new short[2 * 44100];
+            double[] mSound = new double[2 * samplingRate];
+            short[] mBuffer = new short[2 * samplingRate];
 
             for (int i = 0; i < mSound.length; i++) {
                 // 2 * pi * freq / bitrate
                 if (i % 2 == 0) {
-                    mSound[i] = Math.sin((2.0 * Math.PI * rightFreq / 44100.0 * (double) i));
+                    mSound[i] = Math.sin((2.0 * Math.PI * rightFreq / samplingRate * (double) i));
                 } else {
-                    mSound[i] = Math.sin((2.0 * Math.PI * leftFreq / 44100.0 * (double) i));
+                    mSound[i] = Math.sin((2.0 * Math.PI * leftFreq / samplingRate * (double) i));
                 }
                 mBuffer[i] = (short) (mSound[i] * Short.MAX_VALUE);
             }
@@ -57,9 +59,9 @@ public class BinauralSoundPlayer extends Activity {
                     for (int i = 0; i < mSound.length; i++) {
                         // 2 * pi * freq / bitrate
                         if (i % 2 == 0) {
-                            mSound[i] = Math.sin((2.0 * Math.PI * rightFreq / 44100.0 * (double) i));
+                            mSound[i] = Math.sin((2.0 * Math.PI * rightFreq / samplingRate * (double) i));
                         } else {
-                            mSound[i] = Math.sin((2.0 * Math.PI * leftFreq / 44100.0 * (double) i));
+                            mSound[i] = Math.sin((2.0 * Math.PI * leftFreq / samplingRate * (double) i));
                         }
                         mBuffer[i] = (short) (mSound[i] * Short.MAX_VALUE);
                     }
@@ -75,11 +77,11 @@ public class BinauralSoundPlayer extends Activity {
         mStop = false;
         /*
         // AudioTrack definition
-        int mBufferSize = AudioTrack.getMinBufferSize(44100,
+        int mBufferSize = AudioTrack.getMinBufferSize(samplingRate,
                 AudioFormat.CHANNEL_OUT_MONO,
                 AudioFormat.ENCODING_PCM_16BIT);
 
-        mAudiotrack = new AudioTrack(AudioManager.STREAM_MUSIC, 44100,
+        mAudiotrack = new AudioTrack(AudioManager.STREAM_MUSIC, samplingRate,
                 AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_16BIT,
                 mBufferSize, AudioTrack.MODE_STREAM);
 
@@ -91,10 +93,10 @@ public class BinauralSoundPlayer extends Activity {
                         .build())
                 .setAudioFormat(new AudioFormat.Builder()
                         .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
-                        .setSampleRate(44100)
+                        .setSampleRate(samplingRate)
                         .setChannelMask(AudioFormat.CHANNEL_OUT_STEREO)
                         .build())
-                .setBufferSizeInBytes(44100)
+                .setBufferSizeInBytes(samplingRate)
                 .setTransferMode(AudioTrack.MODE_STREAM)
                 .build();
 

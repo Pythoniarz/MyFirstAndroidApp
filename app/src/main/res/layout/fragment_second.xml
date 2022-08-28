@@ -47,7 +47,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview_header"
-        app:layout_constraintVertical_bias="0.507" />
+        app:layout_constraintVertical_bias="0.557" />
 
     <Button
         android:id="@+id/play_button"
@@ -96,5 +96,53 @@
         app:layout_constraintHorizontal_bias="0.122"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview_header" />
+
+    <Button
+        android:id="@+id/left_plus"
+        android:layout_width="70dp"
+        android:layout_height="60dp"
+        android:text="@string/plus"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/left_frequency"
+        app:layout_constraintEnd_toStartOf="@+id/right_plus"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_header" />
+
+    <Button
+        android:id="@+id/right_plus"
+        android:layout_width="70dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="135dp"
+        android:text="@string/plus"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/right_frequency"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/left_plus"
+        app:layout_constraintTop_toBottomOf="@+id/textview_header" />
+
+    <Button
+        android:id="@+id/left_minus"
+        android:layout_width="70dp"
+        android:layout_height="60dp"
+        android:text="@string/minus"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/textview_random"
+        app:layout_constraintEnd_toStartOf="@+id/right_minus"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/left_frequency"
+        app:layout_constraintVertical_bias="0.485" />
+
+    <Button
+        android:id="@+id/right_minus"
+        android:layout_width="70dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="135dp"
+        android:text="@string/minus"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/textview_random"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/left_minus"
+        app:layout_constraintTop_toBottomOf="@+id/right_frequency"
+        app:layout_constraintVertical_bias="0.47" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
