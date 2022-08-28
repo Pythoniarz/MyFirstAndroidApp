@@ -50,7 +50,9 @@ public class SecondFragment extends Fragment {
             public void onClick(View view) {
                 binauralSoundPlayer.onPlayClicked(view);
                 TextView textView = view.getRootView().findViewById(R.id.textview_random);
-                textView.setText(">");
+                leftFreq.setText(""+binauralSoundPlayer.leftFreq);
+                rightFreq.setText(""+binauralSoundPlayer.rightFreq);
+                countDiff();
             }
         });
 
@@ -59,7 +61,8 @@ public class SecondFragment extends Fragment {
             public void onClick(View view) {
                 binauralSoundPlayer.onStopClicked(view);
                 TextView textView = view.getRootView().findViewById(R.id.textview_random);
-                textView.setText("||");
+                double diff = (binauralSoundPlayer.leftFreq - binauralSoundPlayer.rightFreq);
+                textView.setText("| |");
             }
         });
 
@@ -104,6 +107,8 @@ public class SecondFragment extends Fragment {
             public void onClick(View view) {
                 binauralSoundPlayer.leftFreq += 0.5;
                 leftFreq.setText(""+binauralSoundPlayer.leftFreq);
+                checkEquality();
+                countDiff();
             }
         });
 
@@ -112,6 +117,8 @@ public class SecondFragment extends Fragment {
             public void onClick(View view) {
                 binauralSoundPlayer.leftFreq -= 0.5;
                 leftFreq.setText(""+binauralSoundPlayer.leftFreq);
+                checkEquality();
+                countDiff();
             }
         });
 
@@ -120,12 +127,17 @@ public class SecondFragment extends Fragment {
             public void onClick(View view) {
                 binauralSoundPlayer.rightFreq += 0.5;
                 rightFreq.setText(""+binauralSoundPlayer.rightFreq);
+                checkEquality();
+                countDiff();
             }
+
         });view.findViewById(R.id.right_minus).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 binauralSoundPlayer.rightFreq -= 0.5;
                 rightFreq.setText(""+binauralSoundPlayer.rightFreq);
+                checkEquality();
+                countDiff();
             }
         });
 
@@ -145,12 +157,25 @@ public class SecondFragment extends Fragment {
 
     }
 
-
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
 //        binding = null;
     }
 
+    private void checkEquality() {
+        TextView diff = getView().findViewById(R.id.diff);
+        if (binauralSoundPlayer.leftFreq > binauralSoundPlayer.rightFreq) {
+            diff.setText(">");
+        } else if (binauralSoundPlayer.leftFreq < binauralSoundPlayer.rightFreq) {
+            diff.setText("<");
+        } else {
+            diff.setText("=");
+        }
+    }
+
+    private void countDiff() {
+        TextView diff = getView().findViewById(R.id.textview_random);
+        diff.setText("" + Math.abs(binauralSoundPlayer.leftFreq - binauralSoundPlayer.rightFreq));
+    }
 }

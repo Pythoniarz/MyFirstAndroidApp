@@ -12,13 +12,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
         android:text="@string/random_heading"
         android:textColor="@color/design_default_color_primary_dark"
         android:textSize="24sp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,6 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="44dp"
         android:text="@string/previous"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -73,29 +73,37 @@
 
     <EditText
         android:id="@+id/right_frequency"
-        android:layout_width="150dp"
-        android:layout_height="67dp"
+        android:layout_width="175dp"
+        android:layout_height="68dp"
         android:ems="10"
         android:hint="RIGHT CHANNEL"
         android:inputType="numberDecimal"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/textview_random"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.873"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_header" />
+        app:layout_constraintTop_toBottomOf="@+id/textview_header"
+        app:layout_constraintVertical_bias="0.505" />
 
     <EditText
         android:id="@+id/left_frequency"
-        android:layout_width="150dp"
-        android:layout_height="66dp"
+        android:layout_width="175dp"
+        android:layout_height="68dp"
         android:ems="10"
         android:hint="LEFT CHANNEL"
         android:inputType="numberDecimal"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/textview_random"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.122"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_header" />
+        app:layout_constraintTop_toBottomOf="@+id/textview_header"
+        app:layout_constraintVertical_bias="0.505" />
 
     <Button
         android:id="@+id/left_plus"
@@ -144,5 +152,19 @@
         app:layout_constraintStart_toEndOf="@+id/left_minus"
         app:layout_constraintTop_toBottomOf="@+id/right_frequency"
         app:layout_constraintVertical_bias="0.47" />
+
+    <TextView
+        android:id="@+id/diff"
+        android:layout_width="30dp"
+        android:layout_height="63dp"
+        android:text=">"
+        android:textColor="@color/white"
+        android:textSize="60sp"
+        app:layout_constraintBottom_toTopOf="@+id/textview_random"
+        app:layout_constraintEnd_toStartOf="@+id/right_frequency"
+        app:layout_constraintHorizontal_bias="0.468"
+        app:layout_constraintStart_toEndOf="@+id/left_frequency"
+        app:layout_constraintTop_toBottomOf="@+id/textview_header"
+        app:layout_constraintVertical_bias="0.445" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
