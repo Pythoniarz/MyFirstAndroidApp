@@ -141,6 +141,7 @@ public class SecondFragment extends Fragment {
             }
         });
 
+        /*
         Integer count = SecondFragmentArgs.fromBundle(getArguments()).getMyArg();
         String countText = getString(R.string.random_heading, count);
         TextView headerView = view.getRootView().findViewById(R.id.textview_header);
@@ -154,7 +155,7 @@ public class SecondFragment extends Fragment {
 
         TextView randomView = view.getRootView().findViewById(R.id.textview_random);
         randomView.setText(randomNumber.toString());
-
+         */
     }
 
     @Override
