@@ -53,6 +53,7 @@ public class SecondFragment extends Fragment {
                 leftFreq.setText(""+binauralSoundPlayer.leftFreq);
                 rightFreq.setText(""+binauralSoundPlayer.rightFreq);
                 countDiff();
+                specifyWave();
             }
         });
 
@@ -109,6 +110,7 @@ public class SecondFragment extends Fragment {
                 leftFreq.setText(""+binauralSoundPlayer.leftFreq);
                 checkEquality();
                 countDiff();
+                specifyWave();
             }
         });
 
@@ -119,6 +121,7 @@ public class SecondFragment extends Fragment {
                 leftFreq.setText(""+binauralSoundPlayer.leftFreq);
                 checkEquality();
                 countDiff();
+                specifyWave();
             }
         });
 
@@ -129,6 +132,7 @@ public class SecondFragment extends Fragment {
                 rightFreq.setText(""+binauralSoundPlayer.rightFreq);
                 checkEquality();
                 countDiff();
+                specifyWave();
             }
 
         });view.findViewById(R.id.right_minus).setOnClickListener(new View.OnClickListener() {
@@ -138,6 +142,7 @@ public class SecondFragment extends Fragment {
                 rightFreq.setText(""+binauralSoundPlayer.rightFreq);
                 checkEquality();
                 countDiff();
+                specifyWave();
             }
         });
 
@@ -178,5 +183,25 @@ public class SecondFragment extends Fragment {
     private void countDiff() {
         TextView diff = getView().findViewById(R.id.textview_random);
         diff.setText("" + Math.abs(binauralSoundPlayer.leftFreq - binauralSoundPlayer.rightFreq));
+    }
+
+    private void specifyWave() {
+        double freqDiff = Math.abs(binauralSoundPlayer.leftFreq - binauralSoundPlayer.rightFreq);
+        TextView wave = getView().findViewById(R.id.wave);
+        if (freqDiff == 0) {
+            wave.setText("too low");
+        } else if(freqDiff <= 3) {
+            wave.setText("DELTA");
+        } else if(freqDiff <= 8) {
+            wave.setText("THETA");
+        } else if(freqDiff <= 12) {
+            wave.setText("ALPHA");
+        } else if(freqDiff <= 38) {
+            wave.setText("BETA");
+        } else if(freqDiff <= 48) {
+            wave.setText("GAMMA");
+        } else {
+            wave.setText("too high");
+        }
     }
 }
