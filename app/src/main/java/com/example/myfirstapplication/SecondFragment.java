@@ -11,14 +11,13 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import java.util.Random;
-
 public class SecondFragment extends Fragment {
 
 //    private FragmentSecondBinding binding;
     private BinauralSoundPlayer binauralSoundPlayer;
     EditText leftFreq;
     EditText rightFreq;
+    double freqChange;
 
     @Override
     public View onCreateView(
@@ -31,11 +30,17 @@ public class SecondFragment extends Fragment {
         binauralSoundPlayer = new BinauralSoundPlayer();
         leftFreq = fragmentSecondLayout.findViewById(R.id.left_frequency);
         rightFreq = fragmentSecondLayout.findViewById(R.id.right_frequency);
+        freqChange = 0.5;
         return fragmentSecondLayout;
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        TextView textView = view.getRootView().findViewById(R.id.bitrate);
+        textView.setText(Integer.toString(binauralSoundPlayer.samplingRate));
+        textView = view.getRootView().findViewById(R.id.freq_change);
+        textView.setText(Double.toString(freqChange));
 
         view.findViewById(R.id.button_second).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,7 +50,7 @@ public class SecondFragment extends Fragment {
             }
         });
 
-        view.findViewById(R.id.play_button).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.button_play).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 binauralSoundPlayer.onPlayClicked(view);
@@ -57,7 +62,7 @@ public class SecondFragment extends Fragment {
             }
         });
 
-        view.findViewById(R.id.stop_button).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.button_stop).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 binauralSoundPlayer.onStopClicked(view);
@@ -106,7 +111,7 @@ public class SecondFragment extends Fragment {
         view.findViewById(R.id.left_plus).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                binauralSoundPlayer.leftFreq += 0.5;
+                binauralSoundPlayer.leftFreq += freqChange;
                 leftFreq.setText(""+binauralSoundPlayer.leftFreq);
                 checkEquality();
                 countDiff();
@@ -117,7 +122,7 @@ public class SecondFragment extends Fragment {
         view.findViewById(R.id.left_minus).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                binauralSoundPlayer.leftFreq -= 0.5;
+                binauralSoundPlayer.leftFreq -= freqChange;
                 leftFreq.setText(""+binauralSoundPlayer.leftFreq);
                 checkEquality();
                 countDiff();
@@ -128,7 +133,7 @@ public class SecondFragment extends Fragment {
         view.findViewById(R.id.right_plus).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                binauralSoundPlayer.rightFreq += 0.5;
+                binauralSoundPlayer.rightFreq += freqChange;
                 rightFreq.setText(""+binauralSoundPlayer.rightFreq);
                 checkEquality();
                 countDiff();
@@ -138,11 +143,27 @@ public class SecondFragment extends Fragment {
         });view.findViewById(R.id.right_minus).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                binauralSoundPlayer.rightFreq -= 0.5;
+                binauralSoundPlayer.rightFreq -= freqChange;
                 rightFreq.setText(""+binauralSoundPlayer.rightFreq);
                 checkEquality();
                 countDiff();
                 specifyWave();
+            }
+        });
+
+        view.findViewById(R.id.bitrate).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TextView textView = view.getRootView().findViewById(R.id.bitrate);
+                binauralSoundPlayer.setBitrate(Integer.parseInt(textView.getText().toString()));
+            }
+        });
+
+        view.findViewById(R.id.freq_change).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TextView textView = view.getRootView().findViewById(R.id.freq_change);
+                freqChange = Double.parseDouble(textView.getText().toString());
             }
         });
 
@@ -182,7 +203,7 @@ public class SecondFragment extends Fragment {
 
     private void countDiff() {
         TextView diff = getView().findViewById(R.id.textview_random);
-        diff.setText("" + Math.abs(binauralSoundPlayer.leftFreq - binauralSoundPlayer.rightFreq));
+        diff.setText(Math.abs(binauralSoundPlayer.leftFreq - binauralSoundPlayer.rightFreq) + "Hz");
     }
 
     private void specifyWave() {
@@ -204,4 +225,10 @@ public class SecondFragment extends Fragment {
             wave.setText("too high");
         }
     }
+
+//    private double getFreqChange() {
+//        TypedValue typedValue = new TypedValue();
+//        getResources().getValue(R.dimen.freq_change, typedValue, true);
+//        return typedValue.getFloat();
+//    }
 }

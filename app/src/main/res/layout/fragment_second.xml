@@ -50,24 +50,24 @@
         app:layout_constraintVertical_bias="0.557" />
 
     <Button
-        android:id="@+id/play_button"
+        android:id="@+id/button_play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Play"
         app:layout_constraintBottom_toTopOf="@+id/button_second"
-        app:layout_constraintEnd_toStartOf="@+id/stop_button"
+        app:layout_constraintEnd_toStartOf="@+id/button_stop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview_random" />
 
     <Button
-        android:id="@+id/stop_button"
+        android:id="@+id/button_stop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="117dp"
         android:text="Stop"
         app:layout_constraintBottom_toTopOf="@+id/button_second"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/play_button"
+        app:layout_constraintStart_toEndOf="@+id/button_play"
         app:layout_constraintTop_toBottomOf="@+id/textview_random" />
 
 
@@ -104,6 +104,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview_header"
         app:layout_constraintVertical_bias="0.505" />
+
+    <EditText
+        android:id="@+id/bitrate"
+        android:layout_width="103dp"
+        android:layout_height="45dp"
+        android:ems="10"
+        android:hint="bitrate"
+        android:inputType="numberDecimal"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/button_play"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/left_minus"
+        app:layout_constraintVertical_bias="0.452" />
+
+    <EditText
+        android:id="@+id/freq_change"
+        android:layout_width="103dp"
+        android:layout_height="45dp"
+        android:ems="10"
+        android:hint="change"
+        android:inputType="numberDecimal"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/button_stop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/right_minus"
+        app:layout_constraintVertical_bias="0.455" />
 
     <Button
         android:id="@+id/left_plus"

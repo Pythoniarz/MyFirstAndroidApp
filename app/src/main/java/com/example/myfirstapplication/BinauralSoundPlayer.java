@@ -5,8 +5,8 @@ import android.media.AudioAttributes;
 import android.media.AudioFormat;
 import android.media.AudioTrack;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
-import android.widget.TextView;
 
 public class BinauralSoundPlayer extends Activity {
     @Override
@@ -34,7 +34,7 @@ public class BinauralSoundPlayer extends Activity {
         public void run() {
             Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
 
-            /* 8000 bytes per second, 1000 bytes = 125 ms */
+            /* 8000 bytes per second, 1000 bytes = 125 ms */;
 
             // Sine wave
             double[] mSound = new double[2 * samplingRate];
@@ -50,23 +50,31 @@ public class BinauralSoundPlayer extends Activity {
                 mBuffer[i] = (short) (mSound[i] * Short.MAX_VALUE);
             }
 
-            double TmpLeftFreq = leftFreq;
-            double TmpRightFreq = rightFreq;
+            double tmpLeftFreq = leftFreq;
+            double tmpRightFreq = rightFreq;
+            int tmpSamplingRate = samplingRate;
 
             while (!mStop) {
                 // check if need to recalculate buffer
-                if (TmpLeftFreq != leftFreq || TmpRightFreq != rightFreq) {
+                if (tmpSamplingRate != samplingRate) {
+                    mSound = new double[2 * samplingRate];
+                    mBuffer = new short[2 * samplingRate];
+
+                    tmpSamplingRate = samplingRate;
+                }
+
+                if (tmpLeftFreq != leftFreq || tmpRightFreq != rightFreq) {
                     for (int i = 0; i < mSound.length; i++) {
                         // 2 * pi * freq / bitrate
                         if (i % 2 == 0) {
-                            mSound[i] = Math.sin((2.0 * Math.PI * rightFreq / samplingRate * (double) i));
+                            mSound[i] = Math.sin((2.0 * Math.PI * rightFreq / samplingRate * i));
                         } else {
-                            mSound[i] = Math.sin((2.0 * Math.PI * leftFreq / samplingRate * (double) i));
+                            mSound[i] = Math.sin((2.0 * Math.PI * leftFreq / samplingRate * i));
                         }
                         mBuffer[i] = (short) (mSound[i] * Short.MAX_VALUE);
                     }
-                    TmpLeftFreq = leftFreq;
-                    TmpRightFreq = rightFreq;
+                    tmpLeftFreq = leftFreq;
+                    tmpRightFreq = rightFreq;
                 }
                 mAudiotrack.write(mBuffer, 0, mSound.length);
             }
@@ -110,6 +118,17 @@ public class BinauralSoundPlayer extends Activity {
         mStop = true;
         mAudiotrack.stop();
     }
+
+    public void setBitrate(int parseInt) {
+        samplingRate = parseInt;
+    }
+
+//    private int getSamplingRate() {
+//        TypedValue typedValue = new TypedValue();
+//        getResources().getValue(R.integer.sampling_rate, typedValue, true);
+//        int samplingRate = (int) typedValue.getFloat();
+//        return samplingRate;
+//    };
 }
 
 /*    Generate Sine wave of a particular frequency :
